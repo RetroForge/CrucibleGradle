@@ -20,7 +20,6 @@ import org.gradle.api.*;
 import org.gradle.api.artifacts.Configuration.State;
 import org.gradle.api.artifacts.dsl.DependencyHandler;
 import org.gradle.api.file.SourceDirectorySet;
-import org.gradle.api.internal.plugins.DslObject;
 import org.gradle.api.logging.Logger;
 import org.gradle.api.logging.configuration.WarningMode;
 import org.gradle.api.plugins.JavaPlugin;
@@ -908,15 +907,7 @@ public abstract class UserBasePlugin<T extends UserExtension> extends BasePlugin
 
         // scala!!!
         if (project.getPlugins().hasPlugin("scala")) {
-            SourceDirectorySet set;
-            DslObject dslObject = new DslObject(main);
-            if (GradleVersionUtils.isBefore("7.1")) {
-                @SuppressWarnings("deprecation")
-                SourceDirectorySet set1 = ((ScalaSourceSet) dslObject.getConvention().getPlugins().get("scala")).getScala();
-                set = set1;
-            } else {
-                set = dslObject.getExtensions().getByType(ScalaSourceDirectorySet.class);
-            }
+            SourceDirectorySet set = main.getExtensions().getByType(ScalaSourceDirectorySet.class);
             DelayedFile dir = delayedFile(SOURCES_DIR + "/scala");
 
             task = makeTask("sourceMainScala", SourceCopyTask.class);
@@ -930,15 +921,7 @@ public abstract class UserBasePlugin<T extends UserExtension> extends BasePlugin
 
         // groovy!!!
         if (project.getPlugins().hasPlugin("groovy")) {
-            SourceDirectorySet set;
-            DslObject dslObject = new DslObject(main);
-            if (GradleVersionUtils.isBefore("7.1")) {
-                @SuppressWarnings("deprecation")
-                SourceDirectorySet set1 = ((GroovySourceSet) dslObject.getConvention().getPlugins().get("groovy")).getGroovy();
-                set = set1;
-            } else {
-                set = dslObject.getExtensions().getByType(GroovySourceDirectorySet.class);
-            }
+            SourceDirectorySet set = main.getExtensions().getByType(GroovySourceDirectorySet.class);
             DelayedFile dir = delayedFile(SOURCES_DIR + "/groovy");
 
             task = makeTask("sourceMainGroovy", SourceCopyTask.class);

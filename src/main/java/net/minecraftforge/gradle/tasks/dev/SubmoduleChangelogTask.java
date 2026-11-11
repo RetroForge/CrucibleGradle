@@ -71,7 +71,7 @@ public class SubmoduleChangelogTask extends DefaultTask {
     private String[] runGit(final File dir, final String... args) {
         final ByteArrayOutputStream out = new ByteArrayOutputStream();
 
-        getProject().exec(exec -> {
+        net.minecraftforge.gradle.ProcessOperations.get(getProject()).exec(exec -> {
             exec.setExecutable("git");
             exec.args((Object[]) args);
             exec.setStandardOutput(out);

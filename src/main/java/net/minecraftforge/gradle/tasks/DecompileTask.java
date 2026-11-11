@@ -96,7 +96,7 @@ public class DecompileTask extends CachedTask {
     }
 
     private void decompile(final File inJar, final File outJar, final File fernFlower) {
-        getProject().javaexec(exec -> {
+        net.minecraftforge.gradle.ProcessOperations.get(getProject()).javaexec(exec -> {
             exec.args(
                     fernFlower.getAbsolutePath(),
                     "-din=1",

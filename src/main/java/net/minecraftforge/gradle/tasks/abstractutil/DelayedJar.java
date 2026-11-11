@@ -7,7 +7,7 @@ import org.gradle.api.tasks.bundling.Jar;
  * @deprecated not used anywhere
  */
 @Deprecated
-public class DelayedJar extends Jar {
+public abstract class DelayedJar extends Jar {
     private Closure<?> closure = null;
 
     @Override

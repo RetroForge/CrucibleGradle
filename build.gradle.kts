@@ -8,17 +8,17 @@ plugins {
     `maven-publish`
 }
 
-group = "com.anatawa12.forge"
+group = "io.github.cruciblemc"
 
-version = "1.2-${property("version")!!}"
+version = "2.0.0-SNAPSHOT"
 
 base {
-    archivesName.set("ForgeGradle")
+    archivesName.set("CrucibleGradle")
 }
 
 java {
-    targetCompatibility = JavaVersion.VERSION_1_8
-    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_21
+    sourceCompatibility = JavaVersion.VERSION_21
 }
 
 val gradleStartDev = false
@@ -50,10 +50,11 @@ val deployerJars by configurations.creating
 
 dependencies {
     implementation(gradleApi())
+    implementation("org.glavo:pack200:0.3.0")
 
     // moved to the beginning to be the overrider
-    implementation("org.ow2.asm:asm:9.5")
-    implementation("org.ow2.asm:asm-tree:9.5")
+    implementation("org.ow2.asm:asm:9.9.1")
+    implementation("org.ow2.asm:asm-tree:9.9.1")
     implementation("com.google.guava:guava:31.1-jre")
 
     implementation("com.opencsv:opencsv:5.7.1") // reading CSVs.. also used by SpecialSource
@@ -95,6 +96,10 @@ dependencies {
     implementation("org.osgi:org.osgi.service.prefs:1.1.2")
     implementation("org.osgi:osgi.annotation:8.1.0")
 
+    implementation("com.github.tony19:named-regexp:0.2.3")
+    compileOnly("org.projectlombok:lombok:1.18.42")
+    annotationProcessor("org.projectlombok:lombok:1.18.42")
+
     // stupid maven
     deployerJars("org.apache.maven.wagon:wagon-ssh:3.5.3")
 
@@ -108,6 +113,7 @@ dependencies {
 }
 
 val compileJava by tasks.getting(JavaCompile::class) {
+    options.release.set(21)
     options.isDeprecation = true
     //options.compilerArgs += ["-Werror", "-Xlint:unchecked"]
 }
@@ -197,6 +203,10 @@ publishing {
 gradlePlugin {
     isAutomatedPublishing = false
     plugins {
+        create("crucible") {
+            id = "crucible"
+            implementationClass = "io.github.cruciblemc.forgegradle.CrucibleDevPlugin"
+        }
         create("curseforge") {
             id = "curseforge"
             implementationClass = "net.minecraftforge.gradle.curseforge.CursePlugin"

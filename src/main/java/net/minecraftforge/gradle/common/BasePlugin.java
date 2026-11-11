@@ -111,21 +111,8 @@ public abstract class BasePlugin<K extends BaseExtension> implements Plugin<Proj
         // Separated module
         {
             project.getConfigurations().create(SeparatedLauncher.configurationName);
-            String version = getVersionString();
-            if (version.indexOf('-') >= 0) {
-                // remove git sha
-                version = version.substring(0, version.lastIndexOf('-'));
-                project.getDependencies().add(SeparatedLauncher.configurationName,
-                        "com.anatawa12.forge:separated:" + version);
-                // for SNAPSHOTs, add snapshots repository for separated module
-                if (version.contains("SNAPSHOT")) {
-                    MavenArtifactRepository repo = addMavenRepo(project, "ossrh-snapshots-for-forgegradle-separated", 
-                            "https://oss.sonatype.org/content/repositories/snapshots");
-                    // if supported by gradle, limit to separated module
-                    GradleVersionUtils.ifAfter("5.1",
-                            () -> repo.content(desc -> desc.includeModule("com.anatawa12.forge", "separated")));
-                }
-            }
+            project.getDependencies().add(SeparatedLauncher.configurationName,
+                    "io.github.cruciblemc:separated:2.0.0-SNAPSHOT");
         }
 
         // after eval

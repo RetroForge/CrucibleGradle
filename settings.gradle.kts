@@ -1,4 +1,4 @@
 
-rootProject.name = "ForgeGradle-1.2"
+rootProject.name = "CrucibleGradle"
 
 include("separated")
