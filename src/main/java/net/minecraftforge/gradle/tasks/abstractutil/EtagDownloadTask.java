@@ -18,6 +18,7 @@ import java.net.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 
+@org.gradle.work.DisableCachingByDefault(because = "Downloads mutable remote metadata or assets")
 public class EtagDownloadTask extends DefaultTask {
     Object uri;
     Object file;

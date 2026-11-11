@@ -11,7 +11,9 @@ import org.gradle.api.tasks.TaskAction;
 import java.io.*;
 import java.nio.file.Files;
 
+@org.gradle.work.DisableCachingByDefault(because = "Uses legacy mutable task configuration and local file caching")
 public class CompressLZMA extends DefaultTask {
+    @org.gradle.api.tasks.PathSensitive(org.gradle.api.tasks.PathSensitivity.ABSOLUTE)
     @InputFile
     private DelayedFile inputFile;
 

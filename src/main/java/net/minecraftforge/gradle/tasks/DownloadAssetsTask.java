@@ -24,6 +24,7 @@ import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.function.Supplier;
 
+@org.gradle.work.DisableCachingByDefault(because = "Downloads mutable remote metadata or assets")
 public class DownloadAssetsTask extends DefaultTask {
     DelayedFile assetsDir;
 

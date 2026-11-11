@@ -29,7 +29,9 @@ import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+@org.gradle.work.DisableCachingByDefault(because = "Uses legacy mutable task configuration and local file caching")
 public class ExtractS2SRangeTask extends DefaultTask {
+  @org.gradle.api.tasks.PathSensitive(org.gradle.api.tasks.PathSensitivity.ABSOLUTE)
   @InputFiles
   private FileCollection libs;
   private DelayedFile projectFile; // to get classpath from a subproject
@@ -229,6 +231,7 @@ public class ExtractS2SRangeTask extends DefaultTask {
     this.excOutput = out;
   }
 
+  @org.gradle.api.tasks.PathSensitive(org.gradle.api.tasks.PathSensitivity.ABSOLUTE)
   @InputFiles
   public FileCollection getIns() {
     return getProject().files(in);

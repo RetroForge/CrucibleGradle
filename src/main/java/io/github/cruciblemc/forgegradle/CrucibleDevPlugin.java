@@ -53,6 +53,11 @@ public class CrucibleDevPlugin extends DevBasePlugin {
     task.setGroup("crucible");
     task.setDescription("Configures the development workspace for Crucible.");
 
+    Task serverSetup = makeTask("setupServer", DefaultTask.class);
+    serverSetup.dependsOn("extractCauldronSources", "generateProjects");
+    serverSetup.setGroup("crucible");
+    serverSetup.setDescription("Prepares server sources without downloading client assets or natives.");
+
     // clean packages
     {
       Delete del = makeTask("cleanPackages", Delete.class);
@@ -229,7 +234,7 @@ public class CrucibleDevPlugin extends DevBasePlugin {
       task.setMappingChannel(delayedString("{MAPPING_CHANNEL}"));
       task.setMappingVersion(delayedString("{MAPPING_VERSION}"));
 
-      task.dependsOn("extractNatives");
+
     }
 
     task = makeTask("generateProjectCauldron", GenDevProjectsTask.class);
@@ -251,7 +256,7 @@ public class CrucibleDevPlugin extends DevBasePlugin {
       task.setMappingChannel(delayedString("{MAPPING_CHANNEL}"));
       task.setMappingVersion(delayedString("{MAPPING_VERSION}"));
 
-      task.dependsOn("extractRes", "extractNatives");
+      task.dependsOn("extractRes");
     }
 
     makeTask("generateProjects").dependsOn("generateProjectClean", "generateProjectCauldron");
@@ -262,13 +267,13 @@ public class CrucibleDevPlugin extends DevBasePlugin {
     {
       task.setProjectName(ECLIPSE_CLEAN_PROJECT);
       task.setTasks("eclipse");
-      task.dependsOn("extractCleanSource", "generateProjects");
+      task.dependsOn("extractCleanSource", "generateProjects", "extractNatives");
     }
     task = makeTask("eclipseCauldron", SubprojectTask.class);
     {
       task.setProjectName(ECLIPSE_CAULDRON_PROJECT);
       task.setTasks("eclipse");
-      task.dependsOn("extractCauldronSources", "generateProjects");
+      task.dependsOn("extractCauldronSources", "generateProjects", "extractNatives");
     }
 
     makeTask("eclipse").dependsOn("eclipseClean", "eclipseCauldron");
@@ -408,6 +413,7 @@ public class CrucibleDevPlugin extends DevBasePlugin {
 
       uni.getDestinationDirectory().set(delayedFile("{BUILD_DIR}/distributions").call());
       uni.dependsOn("genBinPatches");
+      uni.mustRunAfter("cleanPackages");
     }
     project.getArtifacts().add("archives", uni);
 

@@ -7,6 +7,7 @@ import org.gradle.api.tasks.bundling.Jar;
  * @deprecated not used anywhere
  */
 @Deprecated
+@org.gradle.work.DisableCachingByDefault(because = "Manifest content is configured by a delayed closure")
 public abstract class DelayedJar extends Jar {
     private Closure<?> closure = null;
 

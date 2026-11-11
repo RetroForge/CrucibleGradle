@@ -14,9 +14,11 @@ import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 
+@org.gradle.work.DisableCachingByDefault(because = "Uses legacy mutable task configuration and local file caching")
 public class RestoreGenericSignatures extends CachedTask {
   private static final Map<String, String> SIGNATURE_MAP = new HashMap<>();
 
+  @org.gradle.api.tasks.PathSensitive(org.gradle.api.tasks.PathSensitivity.ABSOLUTE)
   @InputFile
   private DelayedFile inJar;
 

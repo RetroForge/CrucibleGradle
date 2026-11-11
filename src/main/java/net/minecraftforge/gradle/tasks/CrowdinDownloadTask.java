@@ -22,6 +22,7 @@ import java.util.Objects;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+@org.gradle.work.DisableCachingByDefault(because = "Downloads mutable remote metadata or assets")
 public class CrowdinDownloadTask extends DefaultTask {
     @Input
     private Object projectId;

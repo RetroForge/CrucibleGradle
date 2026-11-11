@@ -20,6 +20,7 @@ import java.util.List;
 
 import static net.minecraftforge.gradle.common.Constants.NEWLINE;
 
+@org.gradle.work.DisableCachingByDefault(because = "Uses legacy mutable task configuration and local file caching")
 public class GenDevProjectsTask extends DefaultTask {
     protected DelayedFile targetDir;
 
@@ -267,11 +268,13 @@ public class GenDevProjectsTask extends DefaultTask {
         return this;
     }
 
+    @org.gradle.api.tasks.PathSensitive(org.gradle.api.tasks.PathSensitivity.ABSOLUTE)
     @InputFile
     public File getJson() {
         return json.call();
     }
 
+    @org.gradle.api.tasks.PathSensitive(org.gradle.api.tasks.PathSensitivity.ABSOLUTE)
     @InputDirectory
     public File getJsonParentDir() {
         return getJson().getParentFile();

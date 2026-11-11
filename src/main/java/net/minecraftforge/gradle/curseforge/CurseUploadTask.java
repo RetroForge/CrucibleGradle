@@ -38,6 +38,7 @@ import java.util.*;
 import static com.google.common.base.Preconditions.checkArgument;
 import static java.util.Objects.requireNonNull;
 
+@org.gradle.work.DisableCachingByDefault(because = "Uses legacy mutable task configuration and local file caching")
 public class CurseUploadTask extends DefaultTask {
 
     public static final Collection<String> validReleaseTypes = ImmutableList.of("alpha", "beta", "release");
@@ -313,6 +314,7 @@ public class CurseUploadTask extends DefaultTask {
         this.changelog = changeLog;
     }
 
+    @org.gradle.api.tasks.PathSensitive(org.gradle.api.tasks.PathSensitivity.ABSOLUTE)
     @InputFile
     public Object getArtifact() {
         return artifact;
@@ -339,6 +341,7 @@ public class CurseUploadTask extends DefaultTask {
         this.displayName = displayName;
     }
 
+    @org.gradle.api.tasks.PathSensitive(org.gradle.api.tasks.PathSensitivity.ABSOLUTE)
     @InputFiles
     public Collection<Object> getAdditionalArtifacts() {
         return additionalArtifacts;

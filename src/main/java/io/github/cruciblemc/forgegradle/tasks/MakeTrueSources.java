@@ -21,6 +21,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
+@org.gradle.work.DisableCachingByDefault(because = "Uses legacy mutable task configuration and local file caching")
 public class MakeTrueSources extends CachedTask {
   // Before all gods I swear, this is the last time I touch upon regex
   private static final String NEWLINE_REGEX = "[\\s|\\t|\\r\\n]+";
@@ -33,9 +34,11 @@ public class MakeTrueSources extends CachedTask {
   private static final Pattern CONDITION = Pattern.compile("\\(.*\\)");
   private static final Pattern CLASS = Pattern.compile(".*[\\s]+class[\\s]+[^\\n]*\\{.*\\}", Pattern.DOTALL);
 
+  @org.gradle.api.tasks.PathSensitive(org.gradle.api.tasks.PathSensitivity.ABSOLUTE)
   @InputFile
   private DelayedFile inJar;
 
+  @org.gradle.api.tasks.PathSensitive(org.gradle.api.tasks.PathSensitivity.ABSOLUTE)
   @InputFile
   private DelayedFile astyleConfig;
 

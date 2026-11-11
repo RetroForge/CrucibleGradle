@@ -28,24 +28,31 @@ import java.util.jar.*;
 import java.util.zip.Adler32;
 import java.util.zip.ZipEntry;
 
+@org.gradle.work.DisableCachingByDefault(because = "Uses legacy mutable task configuration and local file caching")
 public class GenBinaryPatches extends DefaultTask {
+    @org.gradle.api.tasks.PathSensitive(org.gradle.api.tasks.PathSensitivity.ABSOLUTE)
     @InputFile
     private DelayedFile cleanClient;
 
+    @org.gradle.api.tasks.PathSensitive(org.gradle.api.tasks.PathSensitivity.ABSOLUTE)
     @InputFile
     private DelayedFile cleanServer;
 
+    @org.gradle.api.tasks.PathSensitive(org.gradle.api.tasks.PathSensitivity.ABSOLUTE)
     @InputFile
     private DelayedFile cleanMerged;
 
+    @org.gradle.api.tasks.PathSensitive(org.gradle.api.tasks.PathSensitivity.ABSOLUTE)
     @InputFile
     private DelayedFile dirtyJar;
 
     private List<DelayedFileTree> patchList = new ArrayList<>();
 
+    @org.gradle.api.tasks.PathSensitive(org.gradle.api.tasks.PathSensitivity.ABSOLUTE)
     @InputFile
     private DelayedFile deobfDataLzma;
 
+    @org.gradle.api.tasks.PathSensitive(org.gradle.api.tasks.PathSensitivity.ABSOLUTE)
     @InputFile
     private DelayedFile srg;
 

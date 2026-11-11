@@ -18,6 +18,7 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.util.regex.Pattern;
 
+@org.gradle.work.DisableCachingByDefault(because = "Uses legacy mutable task configuration and local file caching")
 public class CreateLaunch4jXMLTask extends DefaultTask {
     private final String projectName = getProject().getName();
     @OutputFile

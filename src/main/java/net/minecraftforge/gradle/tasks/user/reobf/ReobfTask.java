@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
+@org.gradle.work.DisableCachingByDefault(because = "Reobfuscates externally configured artifacts in place")
 public class ReobfTask extends DefaultTask {
     final private DomainObjectSet<ObfArtifact> obfOutput = GradleVersionUtils.choose("5.5",
             ReobfTask::getInternalDeprecatedDefaultDomain,
@@ -53,26 +54,32 @@ public class ReobfTask extends DefaultTask {
     @Input
     private DelayedString mcVersion;
 
+    @PathSensitive(PathSensitivity.NONE)
     @InputFile
     private DelayedFile srg;
 
     @Optional
+    @PathSensitive(PathSensitivity.NONE)
     @InputFile
     private DelayedFile fieldCsv;
 
     @Optional
+    @PathSensitive(PathSensitivity.NONE)
     @InputFile
     private DelayedFile methodCsv;
 
     @Optional
+    @PathSensitive(PathSensitivity.NONE)
     @InputFile
     private DelayedFile exceptorCfg;
 
     @Optional
+    @PathSensitive(PathSensitivity.NONE)
     @InputFile
     private DelayedFile deobfFile;
 
     @Optional
+    @PathSensitive(PathSensitivity.NONE)
     @InputFile
     private DelayedFile recompFile;
 
@@ -329,6 +336,7 @@ public class ReobfTask extends DefaultTask {
     /**
      * All of the files that will be signed by this task.
      */
+    @PathSensitive(PathSensitivity.NONE)
     @InputFiles
     FileCollection getFilesToObfuscate() {
         List<File> collect = new ArrayList<>();
@@ -408,6 +416,7 @@ public class ReobfTask extends DefaultTask {
         extraSrgFiles.add(thing);
     }
 
+    @PathSensitive(PathSensitivity.NONE)
     @InputFiles
     public FileCollection getExtraSrgFiles() {
         List<File> files = new ArrayList<>(extraSrgFiles.size());

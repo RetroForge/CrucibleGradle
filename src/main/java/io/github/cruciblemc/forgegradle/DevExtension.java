@@ -1,7 +1,5 @@
 package io.github.cruciblemc.forgegradle;
 
-import lombok.Getter;
-import lombok.Setter;
 import net.minecraftforge.gradle.common.BaseExtension;
 import org.gradle.api.Action;
 import org.gradle.api.Project;
@@ -9,36 +7,19 @@ import org.gradle.api.Project;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 public class DevExtension extends BaseExtension {
-    @Setter
     private String fmlDir;
-    @Setter
     private String forgeDir;
-    @Setter
     private String bukkitDir;
-    @Getter
     private String mainClass = "";
-    @Getter
     private String tweakClass = "";
-    @Getter
     private List<String> repos = new ArrayList<>();
-    @Setter
-    @Getter
     private boolean makeJavadoc = true;
-    @Setter
-    @Getter
     private String installerVersion = "null";
 
-    @Setter
-    @Getter
     private Action<Project> subprojects;
-    @Setter
-    @Getter
     private Action<Project> cleanProject;
-    @Setter
-    @Getter
     private Action<Project> dirtyProject;
 
     public DevExtension(DevBasePlugin plugin) {
@@ -72,6 +53,23 @@ public class DevExtension extends BaseExtension {
     public void setRepos(String... repos) {
         this.repos = new ArrayList<>(Arrays.asList(repos));
     }
+
+    public void setFmlDir(String fmlDir) { this.fmlDir = fmlDir; }
+    public void setForgeDir(String forgeDir) { this.forgeDir = forgeDir; }
+    public void setBukkitDir(String bukkitDir) { this.bukkitDir = bukkitDir; }
+    public String getMainClass() { return mainClass; }
+    public String getTweakClass() { return tweakClass; }
+    public List<String> getRepos() { return repos; }
+    public boolean isMakeJavadoc() { return makeJavadoc; }
+    public void setMakeJavadoc(boolean makeJavadoc) { this.makeJavadoc = makeJavadoc; }
+    public String getInstallerVersion() { return installerVersion; }
+    public void setInstallerVersion(String installerVersion) { this.installerVersion = installerVersion; }
+    public Action<Project> getSubprojects() { return subprojects; }
+    public void setSubprojects(Action<Project> subprojects) { this.subprojects = subprojects; }
+    public Action<Project> getCleanProject() { return cleanProject; }
+    public void setCleanProject(Action<Project> cleanProject) { this.cleanProject = cleanProject; }
+    public Action<Project> getDirtyProject() { return dirtyProject; }
+    public void setDirtyProject(Action<Project> dirtyProject) { this.dirtyProject = dirtyProject; }
 
     // --- Helpers ---
 
