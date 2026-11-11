@@ -5,8 +5,24 @@ former `buildSrc` at `cd1de3dc`. Original ForgeGradle sources and licenses are
 retained. No upstream repository is modified or pushed to.
 
 Build with JDK 21 or newer and the Gradle 9.9.1 wrapper. The `crucible` plugin
-prepares Minecraft 1.7.10 sources and compiles server code with `--release 21`.
-This `java21only` branch requires Java 21 for the server as well as the plugin. It does not require Java 8, Java 17, Jabel,
+prepares Minecraft 1.7.10 sources. Configure the server bytecode target in the
+consuming build script:
+
+```groovy
+minecraft { javaRelease = 21 } // 8 or 21; defaults to 8
+```
+
+In Crucible's Kotlin build script:
+
+```kotlin
+configure<io.github.cruciblemc.forgegradle.DevExtension> {
+    javaRelease = 21
+}
+```
+
+The generated scripts read this setting at build time; changing it does not
+require regenerating the workspace. Java 21 output requires a Java 21 runtime;
+Java 8 output keeps Java 8 compatibility. The build plugin always targets Java 21. It does not require Java 8, Java 17, Jabel,
 or Lombok. Pack200 is provided by `org.glavo:pack200`, not an older JDK.
 
 Crucible includes this build through `pluginManagement.includeBuild`. The

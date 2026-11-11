@@ -29,7 +29,7 @@ public class GenDevProjectsTask extends DefaultTask {
           apply plugin: 'eclipse'
 
           tasks.withType(JavaCompile).configureEach {
-            options.release = 21
+            options.release.set(provider { rootProject.extensions.getByName('minecraft').javaRelease })
             options.encoding = 'UTF-8'
           }
           jar { archiveFileName = project.name + '.jar' }

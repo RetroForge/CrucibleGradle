@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class DevExtension extends BaseExtension {
+    private int javaRelease = 8;
     private String fmlDir;
     private String forgeDir;
     private String bukkitDir;
@@ -24,6 +25,16 @@ public class DevExtension extends BaseExtension {
 
     public DevExtension(DevBasePlugin plugin) {
         super(plugin);
+    }
+
+    /** Server bytecode target; the Gradle runtime still requires JDK 21+. */
+    public int getJavaRelease() { return javaRelease; }
+
+    public void setJavaRelease(int javaRelease) {
+        if (javaRelease != 8 && javaRelease != 21) {
+            throw new IllegalArgumentException("minecraft.javaRelease must be 8 or 21");
+        }
+        this.javaRelease = javaRelease;
     }
 
     public String getFmlDir() {
