@@ -5,8 +5,8 @@ former `buildSrc` at `cd1de3dc`. Original ForgeGradle sources and licenses are
 retained. No upstream repository is modified or pushed to.
 
 Build with JDK 21 or newer and the Gradle 9.9.1 wrapper. The `crucible` plugin
-prepares Minecraft 1.7.10 sources and compiles server code with `--release 8`.
-The plugin itself targets Java 21. It does not require Java 8, Java 17, Jabel,
+prepares Minecraft 1.7.10 sources and compiles server code with `--release 21`.
+This `java21only` branch requires Java 21 for the server as well as the plugin. It does not require Java 8, Java 17, Jabel,
 or Lombok. Pack200 is provided by `org.glavo:pack200`, not an older JDK.
 
 Crucible includes this build through `pluginManagement.includeBuild`. The
