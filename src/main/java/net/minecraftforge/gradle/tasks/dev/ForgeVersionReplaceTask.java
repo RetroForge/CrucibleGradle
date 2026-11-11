@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 
+@org.gradle.work.DisableCachingByDefault(because = "Uses legacy mutable task configuration and local file caching")
 public class ForgeVersionReplaceTask extends DefaultTask {
     DelayedFile outputFile;
     DelayedString replacement;
@@ -33,6 +34,7 @@ public class ForgeVersionReplaceTask extends DefaultTask {
         this.outputFile = output;
     }
 
+    @org.gradle.api.tasks.PathSensitive(org.gradle.api.tasks.PathSensitivity.ABSOLUTE)
     @InputFile
     public File getOutputFile() {
         return outputFile.call();

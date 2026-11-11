@@ -24,13 +24,16 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.*;
 
+@org.gradle.work.DisableCachingByDefault(because = "Uses legacy mutable task configuration and local file caching")
 public class GeneratePatches extends DefaultTask {
     @OutputDirectory
     DelayedFile patchDir;
 
+    @org.gradle.api.tasks.PathSensitive(org.gradle.api.tasks.PathSensitivity.ABSOLUTE)
     @InputFiles
     DelayedFile changed;
 
+    @org.gradle.api.tasks.PathSensitive(org.gradle.api.tasks.PathSensitivity.ABSOLUTE)
     @InputFiles
     DelayedFile original;
 

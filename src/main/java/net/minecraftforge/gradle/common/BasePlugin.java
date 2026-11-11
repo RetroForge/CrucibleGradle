@@ -101,6 +101,16 @@ public abstract class BasePlugin<K extends BaseExtension> implements Plugin<Proj
             // the forge's repository doesn't have pom file.
             addMavenRepo(proj, "forge", Constants.FORGE_MAVEN, false);
             proj.getRepositories().mavenCentral();
+            // Argo 2.25's Central POM contains an external XHTML DOCTYPE.
+            // It has no dependencies; resolve its jar without parsing that broken metadata.
+            proj.getRepositories().exclusiveContent(content -> {
+                content.forRepository(() -> proj.getRepositories().maven(repo -> {
+                    repo.setName("argo-artifact");
+                    repo.setUrl(Constants.FORGE_MAVEN);
+                    repo.metadataSources(MavenArtifactRepository.MetadataSources::artifact);
+                }));
+                content.filter(filter -> filter.includeModule("net.sourceforge.argo", "argo"));
+            });
             addMavenRepo(proj, "minecraft", Constants.LIBRARY_URL);
         });
 

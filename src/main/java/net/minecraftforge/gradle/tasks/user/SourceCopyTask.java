@@ -22,7 +22,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.regex.Pattern;
 
+@org.gradle.work.DisableCachingByDefault(because = "Uses legacy mutable task configuration and local file caching")
 public class SourceCopyTask extends DefaultTask {
+    @org.gradle.api.tasks.PathSensitive(org.gradle.api.tasks.PathSensitivity.ABSOLUTE)
     @InputFiles
     SourceDirectorySet source;
 

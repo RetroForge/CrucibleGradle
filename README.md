@@ -1,3 +1,27 @@
+# CrucibleGradle
+
+A local fork of anatawa12/ForgeGradle-1.2 at `3f5f0d6`, integrating Crucible's
+former `buildSrc` at `cd1de3dc`. Original ForgeGradle sources and licenses are
+retained. No upstream repository is modified or pushed to.
+
+Build with JDK 21 or newer and the Gradle 9.9.1 wrapper. The `crucible` plugin
+prepares Minecraft 1.7.10 sources and compiles server code with `--release 8`.
+The plugin itself targets Java 21. It does not require Java 8, Java 17, Jabel,
+or Lombok. Pack200 is provided by `org.glavo:pack200`, not an older JDK.
+
+Crucible includes this build through `pluginManagement.includeBuild`. The
+`separated` project is substituted locally, so both build artifacts come from
+the same source checkout. Standalone checks:
+
+```sh
+./gradlew test validatePlugins :separated:jar
+```
+
+The legacy Forge user plugins are retained for source compatibility; the
+Crucible server build is the supported integration tested by this change.
+
+## Original ForgeGradle documentation
+
 ForgeGradle
 ===========
 

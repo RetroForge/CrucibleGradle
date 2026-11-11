@@ -42,15 +42,19 @@ import java.util.zip.ZipOutputStream;
 
 import static net.minecraftforge.gradle.common.Constants.EXT_NAME_MC;
 
+@org.gradle.work.DisableCachingByDefault(because = "Uses legacy mutable task configuration and local file caching")
 public class DeterministicDecompileTask extends CachedTask {
   private static final Pattern BEFORE = Pattern.compile("(?m)((case|default).+(?:\\r\\n|\\r|\\n))(?:\\r\\n|\\r|\\n)");
   private static final Pattern AFTER = Pattern.compile("(?m)(?:\\r\\n|\\r|\\n)((?:\\r\\n|\\r|\\n)[ \\t]+(case|default))");
+  @org.gradle.api.tasks.PathSensitive(org.gradle.api.tasks.PathSensitivity.ABSOLUTE)
   @InputFile
   public DelayedFile inJar;
+  @org.gradle.api.tasks.PathSensitive(org.gradle.api.tasks.PathSensitivity.ABSOLUTE)
   @InputFile
   private DelayedFile fernFlower;
   @Internal
   private DelayedFile patch;
+  @org.gradle.api.tasks.PathSensitive(org.gradle.api.tasks.PathSensitivity.ABSOLUTE)
   @InputFile
   private DelayedFile astyleConfig;
   @Cached
@@ -425,6 +429,7 @@ public class DeterministicDecompileTask extends CachedTask {
     this.outJar = outJar;
   }
 
+  @org.gradle.api.tasks.PathSensitive(org.gradle.api.tasks.PathSensitivity.ABSOLUTE)
   @InputFiles
   public FileCollection getPatches() {
     File patches = this.patch.call();

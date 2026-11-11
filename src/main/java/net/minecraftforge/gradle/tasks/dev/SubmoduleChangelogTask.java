@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 
+@org.gradle.work.DisableCachingByDefault(because = "Uses legacy mutable task configuration and local file caching")
 public class SubmoduleChangelogTask extends DefaultTask {
     private DelayedFile submodule;
     @Input
@@ -81,6 +82,7 @@ public class SubmoduleChangelogTask extends DefaultTask {
         return out.toString().trim().split("\n");
     }
 
+    @org.gradle.api.tasks.PathSensitive(org.gradle.api.tasks.PathSensitivity.ABSOLUTE)
     @InputDirectory
     public File getSubmodule() {
         return submodule.call();

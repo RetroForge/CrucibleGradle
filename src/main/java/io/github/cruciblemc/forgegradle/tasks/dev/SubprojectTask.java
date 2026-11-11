@@ -10,6 +10,7 @@ import org.gradle.api.tasks.TaskAction;
 import java.util.LinkedList;
 import java.util.Set;
 
+@org.gradle.work.DisableCachingByDefault(because = "Configures and invokes IDE tasks on generated projects")
 public class SubprojectTask extends DefaultTask {
   @Internal
   private String projectName;

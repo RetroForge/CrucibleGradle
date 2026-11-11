@@ -27,6 +27,7 @@ import java.util.*;
  * This class offers some extra helper methods for caching files.
  */
 // TODO : Maybe move to Gradle's Caching system ?
+@org.gradle.work.DisableCachingByDefault(because = "Uses legacy mutable task configuration and local file caching")
 public abstract class CachedTask extends DefaultTask {
     private boolean doesCache = true;
     private boolean cacheSet = false;

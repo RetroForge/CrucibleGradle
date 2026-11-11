@@ -97,8 +97,6 @@ dependencies {
     implementation("org.osgi:osgi.annotation:8.1.0")
 
     implementation("com.github.tony19:named-regexp:0.2.3")
-    compileOnly("org.projectlombok:lombok:1.18.42")
-    annotationProcessor("org.projectlombok:lombok:1.18.42")
 
     // stupid maven
     deployerJars("org.apache.maven.wagon:wagon-ssh:3.5.3")

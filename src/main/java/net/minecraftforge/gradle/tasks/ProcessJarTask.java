@@ -33,27 +33,34 @@ import java.util.zip.ZipOutputStream;
 import static net.minecraftforge.gradle.common.Constants.EXT_NAME_MC;
 import static org.objectweb.asm.Opcodes.*;
 
+@org.gradle.work.DisableCachingByDefault(because = "Uses legacy mutable task configuration and local file caching")
 public class ProcessJarTask extends CachedTask {
     private final ExtensionContainer extensions = getProject().getExtensions();
+    @org.gradle.api.tasks.PathSensitive(org.gradle.api.tasks.PathSensitivity.ABSOLUTE)
     @InputFile
     @Optional
     private DelayedFile fieldCsv;
+    @org.gradle.api.tasks.PathSensitive(org.gradle.api.tasks.PathSensitivity.ABSOLUTE)
     @InputFile
     @Optional
     private DelayedFile methodCsv;
 
+    @org.gradle.api.tasks.PathSensitive(org.gradle.api.tasks.PathSensitivity.ABSOLUTE)
     @InputFile
     private DelayedFile inJar;
 
+    @org.gradle.api.tasks.PathSensitive(org.gradle.api.tasks.PathSensitivity.ABSOLUTE)
     @InputFile
     private DelayedFile srg;
 
+    @org.gradle.api.tasks.PathSensitive(org.gradle.api.tasks.PathSensitivity.ABSOLUTE)
     @InputFile
     private DelayedFile exceptorCfg;
 
     @Input
     private boolean stripSynthetics = false;
 
+    @org.gradle.api.tasks.PathSensitive(org.gradle.api.tasks.PathSensitivity.ABSOLUTE)
     @InputFile
     private DelayedFile exceptorJson;
 
@@ -66,6 +73,7 @@ public class ProcessJarTask extends CachedTask {
     private DelayedFile outCleanJar; // clean = pure forge, or pure FML
     private DelayedFile outDirtyJar = new DelayedFile(getProject(), "{BUILD_DIR}/processed.jar"); // dirty = has any other ATs
 
+    @org.gradle.api.tasks.PathSensitive(org.gradle.api.tasks.PathSensitivity.ABSOLUTE)
     @InputFiles
     private ArrayList<DelayedFile> ats = new ArrayList<>();
 

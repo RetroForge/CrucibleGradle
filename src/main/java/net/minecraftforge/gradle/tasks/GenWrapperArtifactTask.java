@@ -16,6 +16,7 @@ import java.util.function.BooleanSupplier;
 
 import static net.minecraftforge.gradle.user.UserConstants.WRAPPER_ARTIFACT_GROUP_ID;
 
+@org.gradle.work.DisableCachingByDefault(because = "Uses legacy mutable task configuration and local file caching")
 public class GenWrapperArtifactTask extends DefaultTask {
     @OutputFile
     DelayedFile ivyXml;
@@ -38,6 +39,7 @@ public class GenWrapperArtifactTask extends DefaultTask {
     @Input
     DelayedString version;
 
+    @org.gradle.api.tasks.PathSensitive(org.gradle.api.tasks.PathSensitivity.ABSOLUTE)
     @InputFiles
     @Optional
     Configuration configuration;

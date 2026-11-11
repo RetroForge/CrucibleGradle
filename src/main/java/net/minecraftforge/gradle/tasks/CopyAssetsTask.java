@@ -14,6 +14,7 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.Map.Entry;
 
+@org.gradle.work.DisableCachingByDefault(because = "Uses legacy mutable task configuration and local file caching")
 public class CopyAssetsTask extends DefaultTask {
     @Input
     Closure<AssetIndex> assetIndex;

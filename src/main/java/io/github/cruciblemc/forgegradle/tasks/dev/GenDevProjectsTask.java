@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 import static net.minecraftforge.gradle.common.Constants.EXT_NAME_MC;
 import static net.minecraftforge.gradle.common.Constants.NEWLINE;
 
+@org.gradle.work.DisableCachingByDefault(because = "Uses legacy mutable task configuration and local file caching")
 public class GenDevProjectsTask extends DefaultTask {
   private static final String TEMPLATE = """
           apply plugin: 'java-library'
@@ -91,6 +92,7 @@ public class GenDevProjectsTask extends DefaultTask {
   @Internal
   protected DelayedFile targetDir;
 
+  @org.gradle.api.tasks.PathSensitive(org.gradle.api.tasks.PathSensitivity.ABSOLUTE)
   @InputFile
   protected DelayedFile json;
 

@@ -37,17 +37,21 @@ import java.util.zip.ZipOutputStream;
 
 import static net.minecraftforge.gradle.common.Constants.EXT_NAME_MC;
 
+@org.gradle.work.DisableCachingByDefault(because = "Uses legacy mutable task configuration and local file caching")
 public class DecompileTask extends CachedTask {
     private final File buildDir = ProjectBuildDirHelper.getBuildDir(getProject());
     private final ExtensionContainer extensions = getProject().getExtensions();
+    @org.gradle.api.tasks.PathSensitive(org.gradle.api.tasks.PathSensitivity.ABSOLUTE)
     @InputFile
     private DelayedFile inJar;
 
+    @org.gradle.api.tasks.PathSensitive(org.gradle.api.tasks.PathSensitivity.ABSOLUTE)
     @InputFile
     private DelayedFile fernFlower;
 
     private DelayedFile patch;
 
+    @org.gradle.api.tasks.PathSensitive(org.gradle.api.tasks.PathSensitivity.ABSOLUTE)
     @InputFile
     private DelayedFile astyleConfig;
 
@@ -332,6 +336,7 @@ public class DecompileTask extends CachedTask {
         this.outJar = outJar;
     }
 
+    @org.gradle.api.tasks.PathSensitive(org.gradle.api.tasks.PathSensitivity.ABSOLUTE)
     @InputFiles
     public FileCollection getPatches() {
         File patches = patch.call();
@@ -341,6 +346,7 @@ public class DecompileTask extends CachedTask {
             return getProject().files(patches);
     }
 
+    @org.gradle.api.tasks.PathSensitive(org.gradle.api.tasks.PathSensitivity.ABSOLUTE)
     @InputDirectory
     public File getPatch() {
         return patch.call();

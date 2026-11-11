@@ -23,6 +23,7 @@ import java.nio.file.Files;
 import java.util.*;
 import java.util.Map.Entry;
 
+@org.gradle.work.DisableCachingByDefault(because = "Uses legacy mutable task configuration and local file caching")
 public class ChangelogTask extends DefaultTask {
     @Input
     DelayedString serverRoot;

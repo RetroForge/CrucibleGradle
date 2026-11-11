@@ -19,6 +19,7 @@ import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 import java.util.*;
 
+@org.gradle.work.DisableCachingByDefault(because = "Uses legacy mutable task configuration and local file caching")
 public class ProcessSrcJarTask extends EditJarTask {
     private List<ResourceHolder> stages = new LinkedList<>();
 
@@ -152,6 +153,7 @@ public class ProcessSrcJarTask extends EditJarTask {
         return new PatchedFile(file);
     }
 
+    @org.gradle.api.tasks.PathSensitive(org.gradle.api.tasks.PathSensitivity.ABSOLUTE)
     @InputFiles
     public FileCollection getAllPatches() {
         FileCollection col = null;
@@ -168,6 +170,7 @@ public class ProcessSrcJarTask extends EditJarTask {
         return col;
     }
 
+    @org.gradle.api.tasks.PathSensitive(org.gradle.api.tasks.PathSensitivity.ABSOLUTE)
     @InputFiles
     public FileCollection getAllInjects() {
         FileCollection col = null;
